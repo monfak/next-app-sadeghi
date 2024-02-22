@@ -1,14 +1,13 @@
 import { withFormik } from "formik";
-import { NextRouter } from "next/router";
 import * as yup from "yup";
 import InnerPhoneVerify from "@/components/auth/innerPhoneVerifyForm";
 import { PhoneVerifyFormValuesInterface } from "@/contracts/auth";
 
 import ValidationError from "@/exceptions/validationError";
 import { storeLoginToken } from "@/helpers/auth";
-import callApi from "@/helpers/callApi";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
- 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { sendToApi } from "@/helpers/api";
+
 
 
 const phoneVerifyFormValidationSchema = yup.object().shape({
@@ -29,13 +28,20 @@ const PhoneVerifyForm = withFormik<PhoneVerifyFormProps , PhoneVerifyFormValuesI
     validationSchema: phoneVerifyFormValidationSchema,
     handleSubmit : async (values , { props , setFieldError }) => {
         try {
-           const res = await callApi().post('/auth/login/verify-phone' , values)
-           if(res.status === 200) {
+            const res = await sendToApi({
+                url : "auth/login/verify-phone",
+                options : {
+                    body : JSON.stringify(values)
+                }
+            })
+
+            if(res.ok) {
+                let data = await res.json();
                 // clear phon verify token from redux
-                storeLoginToken(res.data?.user?.token);
+                storeLoginToken(data?.user?.token);
                 await props.router.push('/panel');
                 props.clearToken();
-           }
+            }
         } catch (error) {
             if(error instanceof ValidationError) {
                 Object.entries(error.messages).forEach( ( [key , value] ) => setFieldError(key , value as string))
