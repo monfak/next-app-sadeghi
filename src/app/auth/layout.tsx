@@ -1,25 +1,29 @@
-const Login = ()=>{
-    return(
-        <>
-            <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    {/* <img
-                        className="mx-auto h-12 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                        alt="Workflow"
-                    /> */}
-                    <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">Login on Shopy</h2>
-                </div>
+'use client';
 
-                <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+import { useRouter } from "next/navigation"
+import { ReactNode } from "react"
+import useAuth from "../hooks/useAuth"
 
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+
+interface Props {
+    children : ReactNode
 }
 
-export default Login;
+const GuestLayout = ({ children } : Props) => {
+    const router = useRouter();
+    const { user ,error , loading } = useAuth();
 
+    if(user) {
+        router.push('/panel');
+        return <></>
+    }
+
+    return (
+        <div className="w-full text-2xl">
+            {children}
+        </div>
+    )
+}
+
+
+export default GuestLayout;
