@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { ReactNode } from "react"
-import useAuth from "../hooks/useAuth"
+import useAuth from "@/hooks/useAuth"
 
 
 interface Props {

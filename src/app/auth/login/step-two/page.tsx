@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import PhoneVerifyForm from '../../../forms/auth/phoneVerifyForm'
-import { useAppDispatch, useAppSelector } from '../../../hooks'
-import { selectPhoneVerifyToken, updatePhoneVerifyToken } from '../../../store/auth';
+import PhoneVerifyForm from '@/components/forms/auth/phoneVerifyForm'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import { selectPhoneVerifyToken, updatePhoneVerifyToken } from '@/store/auth';
 
 const PhoneVerify = () => {
 

@@ -1,14 +1,14 @@
 'use client';
 
-import Header from './components/layouts/header'
+import Header from '@/components/layouts/header'
 import './globals.css'
 // import { Vazirmatn } from 'next/font/google'
 import localFont from 'next/font/local'
 import {Provider} from 'react-redux'
-import {store} from './store'
-import useAuth from './hooks/useAuth';
+import {store} from '@/store'
+import useAuth from '@/hooks/useAuth';
 import {useEffect} from 'react';
-import {updateLoading, updateUser} from './store/auth';
+import {updateLoading, updateUser} from '@/store/auth';
 
 // const vazirmatn = Vazirmatn({ subsets: ['latin'] })
 const vazir = localFont({
