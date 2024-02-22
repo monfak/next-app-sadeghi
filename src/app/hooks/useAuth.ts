@@ -1,21 +1,27 @@
 import useSWR from "swr";
-import Cookies from "universal-cookie";
 import { useAppDispatch } from ".";
-import callApi from "../helpers/callApi";
 import { updateUser } from "../store/auth";
+import { fetcher } from "../helpers/api";
 
 const useAuth = () => {
-    const dispatch = useAppDispatch();
-    const cookie = new Cookies();
-    
-    const { data , error } = useSWR('user_me' , () => {
-        return callApi().get('/user')
+    const { data : user , error } = useSWR('user_me' , async () => {
+        let res = await fetcher({
+            url : "user",
+            options : {
+                credentials : "include"
+            }
+        });
+
+        if(res.ok) {
+            let data = await res.json();
+
+            return data?.user;
+        }
+
+        throw new Error('unAuthorized!')
     })
 
-
-    dispatch(updateUser(data?.data?.user))
-
-    return { user : data?.data?.user , error , loading : !data && !error }
+    return { user : user , error , loading : !user && !error }
 }
 
 
