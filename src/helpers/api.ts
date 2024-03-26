@@ -5,19 +5,18 @@ interface fetchProps {
     options? : RequestInit
 }
 
-const BASE_URL = 'http://localhost:5000/api/';
+const BASE_URL = 'http://127.0.0.1:8000/api/';
 
 export const fetcher = ({ url , options = {} }: fetchProps) => {
     return fetch(`${BASE_URL}${url}` , options);
 }
 
-
 export const sendToApi = ({ url , options } : fetchProps) => {
     return fetch(`${BASE_URL}${url}` , {
         method : 'POST',
-        credentials : 'include',
         headers : {
-            "Content-Type" : "application/json"
+            "Content-Type" : "application/json",
+            "Access-Control-Allow-Origin" : "*"
         },
         ...options
     })

@@ -8,7 +8,9 @@ const InnerLoginForm = (props : FormikProps<LoginFormValuesInterface>) => {
             <div>
                 <Input name='phone' label="Phone Number"/>
             </div>
-
+            <div>
+                <Input name='password' label="Enter password"/>
+            </div>
             <div>
                 <button
                     type="submit"

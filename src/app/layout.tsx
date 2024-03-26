@@ -2,6 +2,7 @@
 
 import Header from '@/components/layouts/header'
 import './globals.css'
+
 // import { Vazirmatn } from 'next/font/google'
 import localFont from 'next/font/local'
 import {Provider} from 'react-redux'

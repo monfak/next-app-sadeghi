@@ -2,10 +2,10 @@ import {  withFormik } from "formik";
 import Router from "next/router";
 import * as yup from "yup";
 
-import InnerRegisterForm from "../../components/auth/innerRegisterForm";
-import { RegisterFormValuesInterface } from "../../contracts/auth";
-import ValidationError from "../../exceptions/validationError";
-import callApi from "../../helpers/callApi";
+import InnerRegisterForm from "@/components/auth/innerRegisterForm";
+import { RegisterFormValuesInterface } from "@/contracts/auth";
+import ValidationError from "@/exceptions/validationError";
+import callApi from "@/helpers/callApi";
 
 const phoneRegExp = /^(0|0098|\+98)9(0[1-5]|[1 3]\d|2[0-2]|98)\d{7}$/
 

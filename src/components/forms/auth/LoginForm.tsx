@@ -6,14 +6,15 @@ import InnerLoginForm from '@/components/auth/innerLoginForm' ;
 import ValidationError from "@/exceptions/validationError";
 import {sendToApi} from '@/helpers/api' ;
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import User, { UserType } from '../../../models/user';
 
 interface LoginFormProps  {
-    setToken : (token : string) => void,
+    setUserVerifycation : (token : string,user:UserType) => void,
     router : AppRouterInstance
 }
 
 const LoginForm = withFormik<LoginFormProps , LoginFormValuesInterface>({
-    mapPropsToValues: () => ({ phone: '' }),
+    mapPropsToValues: () => ({ phone: '',password:'' }),
     validationSchema: loginFormValidationSchema,
     handleSubmit : async (values , { props , setFieldError }) => {
         try {
@@ -27,7 +28,7 @@ const LoginForm = withFormik<LoginFormProps , LoginFormValuesInterface>({
             if(res.status === 200) {
                 let data = await res.json();
 
-                props.setToken(data.token);
+                props.setUserVerifycation(data.token,data.user);
                 props.router.push('/auth/login/step-two')
             }
         } catch (error) {
