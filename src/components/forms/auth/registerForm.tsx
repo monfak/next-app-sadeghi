@@ -21,6 +21,8 @@ const RegisterForm = withFormik<RegisterFormProps , RegisterFormValuesInterface>
     mapPropsToValues : props => ({
         name : '',
         phone : '',
+        email : '',
+        password : '',
     }),
     validationSchema: registerFormValidationSchema,
     handleSubmit : async (values , { setFieldError }) => {

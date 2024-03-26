@@ -58,9 +58,7 @@ const RegisterForm = withFormik<RegisterFormProps , RegisterFormValuesInterface>
                 }
                 else
                 {
-                    console.log(111111,data)
                     Object.entries(data.messages).forEach( ( [key , value] ) => setFieldError(key , value as string))
-
                 }
 
             }

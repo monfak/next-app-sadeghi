@@ -8,7 +8,7 @@ const useAuth = () => {
         let res = await fetcher({
             url : "user",
             options : {
-                credentials : "include"
+
             }
         });
 

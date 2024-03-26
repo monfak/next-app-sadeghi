@@ -6,14 +6,18 @@ import InnerLoginForm from '../../components/auth/innerLoginForm' ;
 import ValidationError from "../../exceptions/validationError";
 import {sendToApi} from '../../helpers/api' ;
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import User, { UserType } from '@/models/user';
 
+const MySwal = withReactContent(Swal)
 interface LoginFormProps  {
-    setToken : (token : string) => void,
+    setUserVerifycation : (token : string,user:UserType) => void,
     router : AppRouterInstance
 }
 
 const LoginForm = withFormik<LoginFormProps , LoginFormValuesInterface>({
-    mapPropsToValues: () => ({ phone: '' }),
+    mapPropsToValues: () => ({ phone: '',password:'' }),
     validationSchema: loginFormValidationSchema,
     handleSubmit : async (values , { props , setFieldError }) => {
         try {
@@ -26,9 +30,24 @@ const LoginForm = withFormik<LoginFormProps , LoginFormValuesInterface>({
 
             if(res.status === 200) {
                 let data = await res.json();
+                if (data.success)
+                {
+                    MySwal.fire({
+                        title: 'ورود',
+                        text: 'شما با موفقیت وارد سیستم شدید.',
+                        confirmButtonText: "متوجه شدم",
+                    }).then(() => {
+                        props.setUserVerifycation(data.token,data.user);
+                        let permissions = data.user?.permissions ? data.user.permissions : [] ;
+                        let redirectTo :string = permissions.includes('admin') ? 'admin' : 'site' ;
+                        props.router.push(redirectTo)
+                    })
+                }
+                else
+                {
+                    Object.entries(data.messages).forEach( ( [key , value] ) => setFieldError(key , value as string))
+                }
 
-                props.setToken(data.token);
-                props.router.push('/auth/login/step-two')
             }
         } catch (error) {
             if(error instanceof ValidationError) {
