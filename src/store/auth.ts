@@ -2,17 +2,18 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import User, { UserType } from '../models/user';
+import {storeLoginToken} from "@/helpers/auth";
 
 
 interface AuthState {
     loading? : boolean
-    phoneVerifyToken? : string,
+    access_token? : string,
     user? : UserType
 }
 
 const initialState : AuthState = {
     loading : true,
-    phoneVerifyToken : undefined,
+    access_token : undefined,
     user : undefined
 }
 
@@ -20,10 +21,11 @@ export const authSlice = createSlice({
     name : 'auth',
     initialState,
     reducers : {
-        updatePhoneVerifyToken: (state , action : PayloadAction<string|undefined>) => {
-            state.phoneVerifyToken = action.payload;
+        updateCurrentToken: (state , action : PayloadAction<string|undefined>) => {
+            state.access_token = action.payload;
         },
         updateUser : (state , action : PayloadAction<UserType>) => {
+            console.log(6666666,action.payload)
             state.user = action.payload
         },
         updateLoading : (state , action: PayloadAction<boolean> ) => {
@@ -33,9 +35,9 @@ export const authSlice = createSlice({
 })
 
 
-export const { updatePhoneVerifyToken , updateUser , updateLoading } = authSlice.actions;
+export const { updateCurrentToken , updateUser , updateLoading } = authSlice.actions;
 
-export const selectPhoneVerifyToken = (state : RootState) => state.auth.phoneVerifyToken
+export const selectAccessToken = (state : RootState) => state.auth.access_token
 export const selectUser = (state : RootState) => new User(state.auth.user)
 export const selectUserLoading = (state : RootState) => state.auth.loading;
 

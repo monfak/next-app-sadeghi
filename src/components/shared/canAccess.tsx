@@ -1,7 +1,8 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation";
-import useAuth from "../../hooks/useAuth";
 import User from "../../models/user";
+import {useAppSelector} from "@/hooks";
+import {selectUser} from "@/store/auth";
 
 
 interface Props {
@@ -11,14 +12,13 @@ interface Props {
 
 export default function CanAccess({ children , permissions } : Props) {
     const router = useRouter();
-    const { user : userData } = useAuth();
+    const user = useAppSelector(selectUser);
+    console.log(22222,user)
 
-    const user = new User(userData);
-    
     if(permissions) {
         if(! user.canAccess(permissions) ) {
-            router.push('/admin');
-            return <span>loading ...</span>
+            // router.push('/login');
+            // return <span>loading ...</span>
         }
     }
 

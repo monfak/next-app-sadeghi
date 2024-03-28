@@ -7,9 +7,9 @@ import './globals.css'
 import localFont from 'next/font/local'
 import {Provider} from 'react-redux'
 import {store} from '@/store'
-import useAuth from '@/hooks/useAuth';
 import {useEffect} from 'react';
 import {updateLoading, updateUser} from '@/store/auth';
+import { ToastContainer } from 'react-toastify';
 
 // const vazirmatn = Vazirmatn({ subsets: ['latin'] })
 const vazir = localFont({
@@ -33,13 +33,6 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
 
-    const {user, loading} = useAuth();
-
-    useEffect(() => {
-        store.dispatch(updateUser(user))
-        store.dispatch(updateLoading(loading))
-    }, [user, loading])
-
     return (
         <html lang="en">
         <Provider store={store}>
@@ -48,6 +41,10 @@ export default function RootLayout({
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 {children}
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+            />
             </body>
         </Provider>
         </html>

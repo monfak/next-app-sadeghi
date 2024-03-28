@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation"
 import { ReactNode } from "react"
-import useAuth from "@/hooks/useAuth"
 
 
 interface Props {
@@ -11,12 +10,6 @@ interface Props {
 
 const GuestLayout = ({ children } : Props) => {
     const router = useRouter();
-    const { user ,error , loading } = useAuth();
-
-    if(user) {
-        router.push('/panel');
-        return <></>
-    }
 
     return (
         <div className="w-full text-2xl">

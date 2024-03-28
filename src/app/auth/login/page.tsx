@@ -1,19 +1,20 @@
 'use client';
 import { useAppDispatch } from '@/hooks'
-import { updatePhoneVerifyToken,updateUser } from '@/store/auth'
+import { updateCurrentToken,updateUser } from '@/store/auth'
 import LoginForm from '@/components/forms/auth/LoginForm'
 import { useRouter } from 'next/navigation';
 import User, { UserType } from '../../../models/user';
+import {storeLoginToken} from "@/helpers/auth";
 
 const Login = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const setUserVerifycation = (token: string,user:UserType) => {
-        dispatch(updatePhoneVerifyToken(token));
+        dispatch(updateCurrentToken(token));
+        storeLoginToken(token)
         dispatch(updateUser(user))
     }
-
 
     return (
         <>
