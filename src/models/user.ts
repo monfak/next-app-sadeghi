@@ -5,6 +5,8 @@ export interface UserType {
     name : string;
     phone : string;
     email : string;
+    avatar : string;
+    avatar_url : string;
     permissions : string[]
 }
 

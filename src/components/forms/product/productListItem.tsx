@@ -8,6 +8,7 @@ import ValidationError from "@/exceptions/validationError";
 import { DeleteProduct } from "@/services/product";
 import { KeyedMutator } from "swr";
 import Modal from "../../shared/modal";
+import EditProductForm from "@/components/forms/admin/product/editProductForm";
 
 interface Props {
     product : Product,

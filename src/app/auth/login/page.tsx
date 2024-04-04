@@ -1,6 +1,6 @@
 'use client';
 import { useAppDispatch } from '@/hooks'
-import { updateCurrentToken,updateUser } from '@/store/auth'
+import { updateCurrentToken,updateUser,updateLoading } from '@/store/auth'
 import LoginForm from '@/components/forms/auth/LoginForm'
 import { useRouter } from 'next/navigation';
 import User, { UserType } from '../../../models/user';
@@ -14,6 +14,7 @@ const Login = () => {
         dispatch(updateCurrentToken(token));
         storeLoginToken(token)
         dispatch(updateUser(user))
+        dispatch(updateLoading(false))
     }
 
     return (

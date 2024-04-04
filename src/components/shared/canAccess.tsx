@@ -13,12 +13,13 @@ interface Props {
 export default function CanAccess({ children , permissions } : Props) {
     const router = useRouter();
     const user = useAppSelector(selectUser);
-    console.log(22222,user)
 
     if(permissions) {
         if(! user.canAccess(permissions) ) {
-            // router.push('/login');
-            // return <span>loading ...</span>
+            // router.push('/auth/login');
+            return <>
+                You are not permitted
+            </>
         }
     }
 

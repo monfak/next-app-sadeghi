@@ -34,13 +34,10 @@ export default function RootLayout({
 }) {
 
     return (
-        <html lang="en">
+        <html lang="en" dir="rtl">
         <Provider store={store}>
             <body className={`${vazir.className} bg-gray-100`}>
-            <Header/>
-            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {children}
-            </div>
+            {children}
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

@@ -1,27 +1,19 @@
 import useSWR from "swr";
 import { useAppDispatch,useAppSelector } from ".";
-import { selectAccessToken,updateUser } from "@/store/auth";
+import {selectAccessToken, selectUser, updateUser,updateLoading} from "@/store/auth";
 import { fetcher } from "@/helpers/api";
-import Cookies from "universal-cookie";
 
 const useAuth = () => {
     const dispatch = useAppDispatch();
-    const cookie = new Cookies();
-    const token = useAppSelector(selectAccessToken);
-
-    const { data : user , error } = useSWR('user_me' , async () => {
-        const headers = {
-            'Authorization': 'Bearer ' + token,
-            "Content-Type" : "application/json",
-            "Access-Control-Allow-Origin" : "*"
-        }
-
+    const currentUser = useAppSelector(selectUser);
+    const name = currentUser?.user?.name ;
+    const is_exist_user = name && name != 'undefined' ? true : false ;
+    const { data : user , error } = useSWR(!is_exist_user ? ['get_me', currentUser?.user] : null ,  async () => {
         let res = await fetcher({
             url : "get_me",
             options : {
-                method:"POST",
-                headers:headers
-
+                method:"GET",
+                credentials : "include",
             }
         });
 
@@ -29,7 +21,9 @@ const useAuth = () => {
             let data = await res.json();
             if (data.success)
             {
-                // dispatch(updateUser(data.user))
+                dispatch(updateUser(data?.data?.user))
+                dispatch(updateLoading(false))
+
                 return data?.data?.user;
 
 
@@ -41,7 +35,11 @@ const useAuth = () => {
 
         throw new Error('unAuthorized!')
     })
-    dispatch(updateUser(user))
+
+    if (user && !error)
+    {
+        // dispatch(updateUser(user))
+    }
 
     return { user : user , error , loading : !user && !error }
 }

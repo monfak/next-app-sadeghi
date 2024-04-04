@@ -1,0 +1,18 @@
+.loading_style {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: rgba(245, 245, 245, 0.7607843137);
+  z-index: 10000;
+}
+.loading_style p {
+  text-align: center;
+  width: 100%;
+}
+.loading_style p svg {
+  margin: auto;
+}
+
+/*# sourceMappingURL=snipper.css.map */

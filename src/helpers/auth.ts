@@ -1,10 +1,10 @@
-const storeLoginToken = async (token : string , days : number = 10) => {
+const storeLoginToken = async (access_token : string , days : number = 10) => {
     await fetch('/api/login' , {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json'
         },
-        body : JSON.stringify({ token })
+        body : JSON.stringify({ access_token })
     })
 }
 

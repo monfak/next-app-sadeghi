@@ -25,7 +25,6 @@ export const authSlice = createSlice({
             state.access_token = action.payload;
         },
         updateUser : (state , action : PayloadAction<UserType>) => {
-            console.log(6666666,action.payload)
             state.user = action.payload
         },
         updateLoading : (state , action: PayloadAction<boolean> ) => {

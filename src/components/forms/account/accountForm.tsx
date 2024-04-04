@@ -1,29 +1,36 @@
 
 import {withFormik} from 'formik' ;
-import {LoginFormValuesInterface} from '@/contracts/auth/index' ;
-import {loginFormValidationSchema} from  "@/requests/auth/LoginValidation" ;
-import InnerLoginForm from '@/components/auth/innerLoginForm' ;
+import {AccountFormValuesInterface} from "@/contracts/account" ;
+import {AccountValidation} from  "@/requests/account/accountValidation" ;
+import innerAccountForm from '@/components/account/innerAccountForm' ;
 import ValidationError from "@/exceptions/validationError";
 import {sendToApi} from '@/helpers/api' ;
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import User, { UserType } from '../../../models/user';
+import User , {UserType} from '@/models/user';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 
 const MySwal = withReactContent(Swal) ;
 
-interface LoginFormProps  {
-    setUserVerifycation : (token : string,user:UserType) => void,
+interface FormProps  {
+    user : UserType,
     router : AppRouterInstance
 }
-const LoginForm = withFormik<LoginFormProps , LoginFormValuesInterface>({
-    mapPropsToValues: () => ({ phone: '',password:'' }),
-    validationSchema: loginFormValidationSchema,
+const AccountForm = withFormik<FormProps , AccountFormValuesInterface>({
+    mapPropsToValues: ({user}) => ({
+        name : user.name,
+        phone : user.phone,
+        email : user.email,
+        password : "",
+        avatar : user.avatar,
+        avatar_url : user.avatar_url,
+    }),
+    validationSchema: AccountValidation,
     handleSubmit : async (values , { props , setFieldError }) => {
         try {
             const res = await sendToApi({
-                url : 'auth/login',
+                url : 'account/update/',
                 options : {
                     method : 'POST',
                     headers : {
@@ -44,7 +51,6 @@ const LoginForm = withFormik<LoginFormProps , LoginFormValuesInterface>({
                         text: 'شما با موفقیت وارد سیستم شدید.',
                         confirmButtonText: "متوجه شدم",
                     }).then(() => {
-                        props.setUserVerifycation(info.token,info.user);
                         let user = new User(info.user)
                         let redirectTo  =  user.canAccess('admin') ? '/admin' : '/site';
                         props.router.push(redirectTo)
@@ -62,7 +68,7 @@ const LoginForm = withFormik<LoginFormProps , LoginFormValuesInterface>({
             }
         }
     },
-    displayName: 'فرم ورود',
-})(InnerLoginForm);
+    displayName: 'ویرایش فایل',
+})(innerAccountForm);
 
-export default LoginForm ;
+export default AccountForm ;
