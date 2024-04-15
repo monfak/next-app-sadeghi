@@ -19,7 +19,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
 import SidebarLayout from "@/components/admin/layouts/sidebarLayout"
 import {store} from "@/store";
-import {selectUser, updateLoading, updateUser,selectUserLoading} from "@/store/auth";
+import {selectUser, selectIsRedirect,selectUserLoading} from "@/store/auth";
 import CanAccess from "@/components/shared/canAccess";
 import useAuth from "@/hooks/useAuth";
 import LoadingBox from '@/components/shared/loadingBox';
@@ -39,14 +39,13 @@ const AdminPanelLayout = ({ children }: Props) => {
     const router = useRouter();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const { error } = useAuth();
-
-    // useEffect(() => {
-    //     store.dispatch(updateUser(user))
-    //     store.dispatch(updateLoading(loading))
-    // } , [user])
     const loading = useAppSelector(selectUserLoading);
     const user = useAppSelector(selectUser);
-
+    const isRedirect = useAppSelector(selectIsRedirect);
+    if (isRedirect)
+    {
+        router.push('/auth/login')
+    }
     return (
         <>
             {

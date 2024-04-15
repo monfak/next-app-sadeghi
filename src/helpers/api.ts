@@ -13,6 +13,17 @@ export const fetcher = ({ url , options = {} }: fetchProps) => {
     return fetch(`${BASE_URL}${url}` , options);
 }
 
+export const devFetch = ({url,item}:any)=>{
+    return fetch(`${BASE_URL}${url}`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: item
+    })
+}
+
 export const sendToApi = ({ url , options } : fetchProps) => {
     return fetch(`${BASE_URL}${url}` , {
         method : 'POST',

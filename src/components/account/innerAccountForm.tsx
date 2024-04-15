@@ -11,13 +11,12 @@ type ProductFormProps = FormikProps<AccountFormValuesInterface> & {
 const InnerLoginForm = (props: ProductFormProps) => {
     const user = props.user;
     return (
-        <Form className="space-y-6">
+        <Form className="space-y-6" encType="multipart/form-data">
             <div className="flex flex-row">
                 <div className="basis-2/5 p-2">
                     <SingleUpload oldValue={user?.avatar}
                                   oldImg={user?.avatar_url}
                                   name="avatar"
-                                  onChange={(event) => props.setFieldValue('avatar' , event?.currentTarget?.files?.[0] ?? '' )}
                     />
                 </div>
                 <div className="basis-3/5 p-2">

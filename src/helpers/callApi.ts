@@ -4,7 +4,7 @@ import ValidationError from "../exceptions/validationError";
 
 const callApi = () => {
     const axiosInstance = axios.create({
-        baseURL : 'http://127.0.0.1:8000/api/'
+        baseURL : 'http://localhost:8000/api/',
     })
 
     axiosInstance.interceptors.request.use(

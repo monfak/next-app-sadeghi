@@ -1,4 +1,4 @@
-import { CreateProductInterface } from "../contracts/admin/products";
+import { CreateProductInterface } from "@/contracts/admin/products";
 import callApi from "../helpers/callApi";
 
 

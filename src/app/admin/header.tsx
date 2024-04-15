@@ -2,6 +2,8 @@ import {Bars3BottomLeftIcon, BellIcon} from "@heroicons/react/24/outline";
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid";
 import {Menu, Transition} from "@headlessui/react";
 import {Fragment, useState} from "react";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {selectUser} from "@/store/auth";
 interface Props {
     open : boolean,
     setOpen : React.Dispatch<React.SetStateAction<boolean>>
@@ -10,8 +12,10 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 export default function Header ({ open , setOpen } : Props) {
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectUser=>selectUser?.auth?.user);
     const userNavigation = [
-        { name: 'حساب کاربری', href: '/admin/account' },
+        { name: `حساب کاربری (${user?.name})`, href: '/admin/account' },
         { name: 'Settings', href: '#' },
         { name: 'Sign out', href: '#' },
     ]
