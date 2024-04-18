@@ -12,7 +12,7 @@ import {
 import Link from 'next/link';
 import ActiveLink from '../../shared/activeLink';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../../store/auth';
+import { selectUser } from '@/store/auth';
 
 
 
@@ -26,9 +26,9 @@ export default function SidebarLayout({ open , setOpen } : Props) {
     const user = useSelector(selectUser);
 
     const navigation = [
-        { name: 'Dashboard', href: '/admin', icon: HomeIcon , enabled : true },
-        { name: 'Products', href: '/admin/products', icon: FolderIcon, enabled : user.canAccess('manage_products') },
-        { name: 'Users', href: '/admin/users', icon: UsersIcon , enabled : user.canAccess('manage_users') },
+        { name: 'داشبورد', href: '/admin', icon: HomeIcon , enabled : true },
+        { name: 'مخصولات', href: '/admin/products', icon: FolderIcon, enabled : user.canAccess('manage_products') },
+        { name: 'کاربران', href: '/admin/users', icon: UsersIcon , enabled : user.canAccess('manage_users') },
     ]
 
     return (

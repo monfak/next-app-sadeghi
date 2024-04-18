@@ -2,10 +2,10 @@ import Link from "next/link"
 import { useRouter } from "next/navigation";
 import Product from "@/models/product";
 import { useState } from "react";
-import DeleteConfirmation from "../../shared/deleteConfimation";
+import DeleteConfirmation from "@/components/shared/deleteConfimation";
 import { toast } from "react-toastify";
 import ValidationError from "@/exceptions/validationError";
-import { DeleteProduct } from "@/services/product";
+import { DeleteProduct } from "@/services/products";
 import { KeyedMutator } from "swr";
 import Modal from "../../shared/modal";
 
@@ -49,13 +49,13 @@ export default function ProductListItem({ product , mutateProducts } : Props) {
             <tr>
                 <td className="hidden">
                     {/* {
-                        `edit-product-${product.id}` in router.query &&  <Modal
+                        `edit-products-${products.id}` in router.query &&  <Modal
                             setShow={() => router.push('/admin/products')}
                         >
                             <div className="inline-block w-full max-w-3xl mt-8 mb-20 overflow-hidden text-right align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
 
                                 <h2 className="text-xl font-bold leading-tight text-gray-800 py-5 px-7  border-b">ویرایش محصول</h2>
-                                <EditProductForm product={product} mutateProducts={mutateProducts}/>
+                                <EditProductForm products={products} mutateProducts={mutateProducts}/>
                             </div>
                         </Modal>
                     } */}

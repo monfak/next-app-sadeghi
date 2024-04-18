@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik"
-import Spinner from "../icons/spinner"
+import Spinner from "@/components/icons/spinner"
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 import Modal from "./modal"
 

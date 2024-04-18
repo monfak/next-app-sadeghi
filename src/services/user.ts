@@ -1,11 +1,9 @@
-import {AccountFormValuesInterface} from "@/contracts/account";
-import callApi from "@/helpers/callApi";
 import ValidationError from "@/exceptions/validationError";
-import {fetcher, sendToApi} from '@/helpers/api' ;
+import {fetcher} from '@/helpers/api';
 import {UserType} from "@/models/user";
 import {updateCurrentToken, updateIsRedirect, updateLoading, updateUser} from "@/store/auth";
 import {storeLoginToken} from "@/helpers/auth";
-import {useAppDispatch, useAppSelector} from "@/hooks";
+import {useAppDispatch} from "@/hooks";
 
 export async function UpdateUser(userId  : number ,  values : any) {
     const formdata = new FormData();
@@ -13,16 +11,15 @@ export async function UpdateUser(userId  : number ,  values : any) {
         formdata.append(key, values[key]);
     }
     try {
-        const res = await fetcher({
-            url : `admin/users/${userId}`,
-            options : {
-                method : 'POST',
-                credentials : "include",
+        return await fetcher({
+            url: `admin/users/${userId}`,
+            options: {
+                method: 'POST',
+                credentials: "include",
                 redirect: 'follow',
-                body : formdata
+                body: formdata
             }
-        })
-        return res ;
+        }) ;
     } catch (error) {
         if(error instanceof ValidationError) {
             throw new ValidationError(error)

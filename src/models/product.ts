@@ -1,9 +1,10 @@
 export default interface Product {
     id: number;
     title : string,
-    category? : string,
-    body : string,
-    price : number
+    category_id? : string,
+    description : string,
+    price : number,
+    status : number,
     user_id : number,
     created_at : string
 }
